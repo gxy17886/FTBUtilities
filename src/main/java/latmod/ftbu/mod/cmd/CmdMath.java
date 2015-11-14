@@ -4,7 +4,7 @@ import javax.script.*;
 
 import latmod.ftbu.cmd.*;
 import latmod.lib.LMStringUtils;
-import net.minecraft.command.ICommandSender;
+import net.minecraft.command.*;
 import net.minecraft.util.*;
 
 public class CmdMath extends CommandLM
@@ -12,7 +12,7 @@ public class CmdMath extends CommandLM
 	public CmdMath()
 	{ super("math", CommandLevel.ALL); }
 	
-	public IChatComponent onCommand(ICommandSender ics, String[] args)
+	public IChatComponent onCommand(ICommandSender ics, String[] args) throws CommandException
 	{
 		checkArgs(args, 1);
 		

@@ -2,8 +2,6 @@ package latmod.ftbu.mod.client;
 
 import org.lwjgl.opengl.GL11;
 
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.relauncher.*;
 import ftb.lib.client.*;
 import latmod.ftbu.api.client.*;
 import latmod.ftbu.mod.FTBU;
@@ -18,6 +16,8 @@ import net.minecraft.client.gui.*;
 import net.minecraft.client.gui.inventory.*;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraftforge.client.event.GuiScreenEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.*;
 
 @SideOnly(Side.CLIENT)
 public class FTBUGuiEventHandler
@@ -116,7 +116,7 @@ public class FTBUGuiEventHandler
 		{
 			final GuiContainerCreative creativeContainer = (e.gui instanceof GuiContainerCreative) ? (GuiContainerCreative)e.gui : null;
 			
-			if(creativeContainer == null || creativeContainer.func_147056_g() == CreativeTabs.tabInventory.getTabIndex())
+			if(creativeContainer == null || creativeContainer.getSelectedTabIndex() == CreativeTabs.tabInventory.getTabIndex())
 			{
 				PlayerSelfAction b = buttons.getObj(e.button.id);
 				b.onClicked(LMWorldClient.inst.getClientPlayer());
@@ -138,7 +138,7 @@ public class FTBUGuiEventHandler
 		
 		public void drawButton(Minecraft mc, int mx, int my)
 		{
-			if(creativeContainer != null && creativeContainer.func_147056_g() != CreativeTabs.tabInventory.getTabIndex())
+			if(creativeContainer != null && creativeContainer.getSelectedTabIndex() != CreativeTabs.tabInventory.getTabIndex())
 				return;
 			
 			GL11.glPushAttrib(GL11.GL_ENABLE_BIT);
@@ -154,12 +154,12 @@ public class FTBUGuiEventHandler
 			if(button.ID == friends.ID && !ClientNotifications.Perm.list.isEmpty())
 			{
 				String n = String.valueOf(ClientNotifications.Perm.list.size());
-				int nw = mc.fontRenderer.getStringWidth(n);
+				int nw = mc.fontRendererObj.getStringWidth(n);
 				GL11.glColor4f(1F, 1F, 1F, 1F);
 				GL11.glDisable(GL11.GL_TEXTURE_2D);
 				GuiLM.drawRect(xPosition + width - nw, yPosition - 4, xPosition + width + 1, yPosition + 5, 0xAAFF2222);
 				GL11.glEnable(GL11.GL_TEXTURE_2D);
-				mc.fontRenderer.drawString(n, xPosition + width - nw + 1, yPosition - 3, 0xFFFFFFFF);
+				mc.fontRendererObj.drawString(n, xPosition + width - nw + 1, yPosition - 3, 0xFFFFFFFF);
 			}
 			
 			GL11.glPopAttrib();

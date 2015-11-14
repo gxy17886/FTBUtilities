@@ -2,7 +2,7 @@ package latmod.ftbu.cmd;
 
 import latmod.ftbu.mod.FTBU;
 import latmod.lib.*;
-import net.minecraft.command.ICommandSender;
+import net.minecraft.command.*;
 import net.minecraft.util.*;
 
 public class CommandSubLM extends CommandLM
@@ -18,7 +18,7 @@ public class CommandSubLM extends CommandLM
 	public void add(CommandLM c)
 	{ subCommands.put(c.commandName, c); }
 	
-	public String[] getTabStrings(ICommandSender ics, String args[], int i)
+	public String[] getTabStrings(ICommandSender ics, String args[], int i) throws CommandException
 	{
 		if(i == 0) return subCommands.keys.toArray(new String[0]);
 		
@@ -45,7 +45,7 @@ public class CommandSubLM extends CommandLM
 		return NameType.NONE;
 	}
 	
-	public IChatComponent onCommand(ICommandSender ics, String[] args)
+	public IChatComponent onCommand(ICommandSender ics, String[] args) throws CommandException
 	{
 		if(args == null || args.length == 0)
 			return new ChatComponentText(LMStringUtils.strip(getTabStrings(ics, args, 0)));

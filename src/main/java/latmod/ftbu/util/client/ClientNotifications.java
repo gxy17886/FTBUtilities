@@ -2,7 +2,6 @@ package latmod.ftbu.util.client;
 
 import org.lwjgl.opengl.*;
 
-import cpw.mods.fml.relauncher.*;
 import ftb.lib.client.FTBLibClient;
 import latmod.ftbu.notification.Notification;
 import latmod.ftbu.util.gui.GuiLM;
@@ -11,8 +10,8 @@ import latmod.lib.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.relauncher.*;
 
 @SideOnly(Side.CLIENT)
 public class ClientNotifications
@@ -59,7 +58,6 @@ public class ClientNotifications
 	public static class Temp extends Gui
 	{
 		public static final FastList<Temp> list = new FastList<Temp>();
-		private static RenderItem renderItem = new RenderItem();
 		private static Minecraft mc;
 		
 		private long time;
@@ -81,7 +79,7 @@ public class ClientNotifications
 			timer = (double)n.timer;
 			item = n.item;
 			color = LMColorUtils.getRGBA(n.color, 230);
-			width = 20 + Math.max(mc.fontRenderer.getStringWidth(title), mc.fontRenderer.getStringWidth(desc));
+			width = 20 + Math.max(mc.fontRendererObj.getStringWidth(title), mc.fontRendererObj.getStringWidth(desc));
 			if(item != null) width += 20;
 		}
 		
@@ -141,12 +139,12 @@ public class ClientNotifications
 				
 				if(desc == null)
 				{
-					mc.fontRenderer.drawString(title, i + w, j + 12, -256);
+					mc.fontRendererObj.drawString(title, i + w, j + 12, -256);
 				}
 				else
 				{
-					mc.fontRenderer.drawString(title, i + w, j + 7, -256);
-					mc.fontRenderer.drawString(desc, i + w, j + 18, -1);
+					mc.fontRendererObj.drawString(title, i + w, j + 7, -256);
+					mc.fontRendererObj.drawString(desc, i + w, j + 18, -1);
 				}
 				
 				if(item != null)
@@ -155,8 +153,8 @@ public class ClientNotifications
 					GL11.glEnable(GL12.GL_RESCALE_NORMAL);
 					GL11.glEnable(GL11.GL_COLOR_MATERIAL);
 					GL11.glEnable(GL11.GL_LIGHTING);
-					renderItem.renderItemIntoGUI(mc.fontRenderer, mc.getTextureManager(), item, i + 8, j + 8, false);
-					renderItem.renderItemOverlayIntoGUI(mc.fontRenderer, mc.getTextureManager(), item, i + 8, j + 8);
+					mc.getRenderItem().renderItemIntoGUI(item, i + 8, j + 8);
+					mc.getRenderItem().renderItemOverlayIntoGUI(mc.fontRendererObj, item, i + 8, j + 8, null);
 				}
 				
 				GL11.glDepthMask(true);

@@ -4,7 +4,7 @@ import ftb.lib.LMDimUtils;
 import latmod.ftbu.cmd.*;
 import latmod.ftbu.mod.FTBU;
 import latmod.ftbu.world.*;
-import net.minecraft.command.ICommandSender;
+import net.minecraft.command.*;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.*;
 
@@ -13,7 +13,7 @@ public class CmdBack extends CommandLM
 	public CmdBack()
 	{ super("back", CommandLevel.ALL); }
 	
-	public IChatComponent onCommand(ICommandSender ics, String[] args)
+	public IChatComponent onCommand(ICommandSender ics, String[] args) throws CommandException
 	{
 		EntityPlayerMP ep = getCommandSenderAsPlayer(ics);
 		LMPlayerServer p = LMWorldServer.inst.getPlayer(ep);

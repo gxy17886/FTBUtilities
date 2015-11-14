@@ -3,13 +3,13 @@ package latmod.ftbu.notification;
 import java.io.File;
 import java.net.URI;
 
-import cpw.mods.fml.relauncher.*;
 import ftb.lib.client.FTBLibClient;
 import latmod.ftbu.net.ClientAction;
 import latmod.ftbu.world.LMPlayerClient;
 import latmod.lib.*;
 import latmod.lib.util.FinalIDObject;
 import net.minecraft.client.gui.GuiChat;
+import net.minecraftforge.fml.relauncher.*;
 
 public abstract class ClickAction extends FinalIDObject
 {

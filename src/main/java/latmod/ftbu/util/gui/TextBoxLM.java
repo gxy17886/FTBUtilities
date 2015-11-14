@@ -1,10 +1,10 @@
 package latmod.ftbu.util.gui;
 import org.lwjgl.input.Keyboard;
 
-import cpw.mods.fml.relauncher.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.util.ChatAllowedCharacters;
+import net.minecraftforge.fml.relauncher.*;
 
 @SideOnly(Side.CLIENT)
 public class TextBoxLM extends WidgetLM

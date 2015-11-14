@@ -1,11 +1,10 @@
 package latmod.ftbu.util.gui;
+import java.io.IOException;
 import java.util.List;
 
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 
-import cpw.mods.fml.common.Optional;
-import cpw.mods.fml.relauncher.*;
 import ftb.lib.OtherMods;
 import ftb.lib.client.*;
 import latmod.ftbu.util.client.LMRenderHelper;
@@ -13,10 +12,12 @@ import latmod.lib.*;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.*;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.common.Optional;
+import net.minecraftforge.fml.relauncher.*;
 
 @SideOnly(Side.CLIENT)
 @Optional.Interface(iface = "codechicken.nei.api.INEIGuiHandler", modid = OtherMods.NEI)
@@ -100,7 +101,7 @@ public abstract class GuiLM extends GuiContainer implements codechicken.nei.api.
 	{
 	}
 	
-	protected void mouseClicked(int mx, int my, int b)
+	protected void mouseClicked(int mx, int my, int b) throws IOException
 	{
 		mouseX = mx;
 		mouseY = my;
@@ -108,7 +109,7 @@ public abstract class GuiLM extends GuiContainer implements codechicken.nei.api.
 		super.mouseClicked(mx, my, b);
 	}
 	
-	protected void keyTyped(char keyChar, int key)
+	protected void keyTyped(char keyChar, int key) throws IOException
 	{
 		if(mainPanel.keyPressed(key, keyChar)) return;
 		super.keyTyped(keyChar, key);
@@ -182,9 +183,6 @@ public abstract class GuiLM extends GuiContainer implements codechicken.nei.api.
 	{
 	}
 	
-	public void drawWrappedIcon(IIcon i, float x, float y, float w, float h)
-	{ drawTexturedRectD(x, y, zLevel, w, h, i.getMinU(), i.getMinV(), i.getMaxU(), i.getMaxV()); }
-	
 	public void drawTexturedModalRect(int x, int y, int u, int v, int w, int h)
 	{ drawTexturedModalRectD(x, y, u, v, w, h); }
 	
@@ -196,7 +194,7 @@ public abstract class GuiLM extends GuiContainer implements codechicken.nei.api.
 	
 	public static void drawTexturedRectD(double x, double y, double z, double w, double h, double u0, double v0, double u1, double v1)
 	{
-		Tessellator t = Tessellator.instance;
+		WorldRenderer t = Tessellator.getInstance().getWorldRenderer();
 		t.startDrawingQuads();
 		
 		if(u0 == 0D && v0 == 0D && u1 == 0D && v1 == 0D)
@@ -213,7 +211,8 @@ public abstract class GuiLM extends GuiContainer implements codechicken.nei.api.
 			t.addVertexWithUV(x + w, y + 0, z, u1, v0);
 			t.addVertexWithUV(x + 0, y + 0, z, u0, v0);
 		}
-		t.draw();
+		
+		Tessellator.getInstance().draw();
 	}
 	
 	public static void drawTexturedRect(double x, double y, double z, double w, double h, double u0, double v0, double u1, double v1, int textureW, int textureH)
@@ -224,7 +223,7 @@ public abstract class GuiLM extends GuiContainer implements codechicken.nei.api.
 	}
 	
 	public void playSoundFX(ResourceLocation s, float pitch)
-	{ mc.getSoundHandler().playSound(PositionedSoundRecord.func_147674_a(s, pitch)); }
+	{ mc.getSoundHandler().playSound(PositionedSoundRecord.create(s, pitch)); }
 	
 	public void playClickSound()
 	{ FTBLibClient.playClickSound(); }
@@ -235,8 +234,8 @@ public abstract class GuiLM extends GuiContainer implements codechicken.nei.api.
 	public static void drawPlayerHead(String username, double x, double y, double w, double h, double z)
 	{
 		FTBLibClient.setTexture(FTBLibClient.getSkinTexture(username));
-		drawTexturedRectD(x, y, z, w, h, 0.125D, 0.25D, 0.25D, 0.5D);
-		drawTexturedRectD(x, y, z, w, h, 0.625D, 0.25D, 0.75D, 0.5D);
+		drawTexturedRectD(x, y, z, w, h, 0.125D, 0.125D, 0.25D, 0.25D);
+		drawTexturedRectD(x, y, z, w, h, 0.625D, 0.125D, 0.75D, 0.25D);
 	}
 	
 	public static void drawBlankRect(double x, double y, double z, double w, double h, int col)
@@ -245,21 +244,21 @@ public abstract class GuiLM extends GuiContainer implements codechicken.nei.api.
 		GL11.glEnable(GL11.GL_BLEND);
 		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		GL11.glDisable(GL11.GL_TEXTURE_2D);
-		Tessellator t = Tessellator.instance;
+		WorldRenderer t = Tessellator.getInstance().getWorldRenderer();
 		t.startDrawingQuads();
 		t.setColorRGBA_I(col, LMColorUtils.getAlpha(col));
 		t.addVertex(x + 0, y + h, z);
 		t.addVertex(x + w, y + h, z);
 		t.addVertex(x + w, y + 0, z);
 		t.addVertex(x + 0, y + 0, z);
-		t.draw();
+		Tessellator.getInstance().draw();
 		GL11.glEnable(GL11.GL_TEXTURE_2D);
 	}
 	
 	public void drawItem(ItemStack is, int x, int y)
 	{
 		if(is == null) return;
-		setTexture(TextureMap.locationItemsTexture);
+		setTexture(TextureMap.locationBlocksTexture);
 		zLevel = 200F;
 		itemRender.zLevel = 200F;
 		LMRenderHelper.renderGuiItem(is, itemRender, getFontRenderer(), x, y);

@@ -2,11 +2,9 @@ package latmod.ftbu.mod.handlers;
 
 import java.util.List;
 
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import ftb.lib.*;
 import ftb.lib.item.LMInvUtils;
 import latmod.ftbu.api.EventLMPlayerServer;
-import latmod.ftbu.api.item.ICreativeSafeItem;
 import latmod.ftbu.mod.FTBU;
 import latmod.ftbu.mod.config.*;
 import latmod.ftbu.net.*;
@@ -21,11 +19,15 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.*;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.FakePlayer;
+import net.minecraftforge.event.entity.EntityEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 
 public class FTBUPlayerEventHandler
 {
 	@SubscribeEvent
-	public void playerLoggedIn(cpw.mods.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent e)
+	public void playerLoggedIn(PlayerEvent.PlayerLoggedInEvent e)
 	{
 		if(!(e.player instanceof EntityPlayerMP)) return;
 		EntityPlayerMP ep = (EntityPlayerMP)e.player;
@@ -73,7 +75,7 @@ public class FTBUPlayerEventHandler
 	}
 	
 	@SubscribeEvent
-	public void playerLoggedOut(cpw.mods.fml.common.gameevent.PlayerEvent.PlayerLoggedOutEvent e)
+	public void playerLoggedOut(PlayerEvent.PlayerLoggedOutEvent e)
 	{ if(e.player instanceof EntityPlayerMP) playerLoggedOut((EntityPlayerMP)e.player); }
 	
 	public static void playerLoggedOut(EntityPlayerMP ep)
@@ -97,7 +99,7 @@ public class FTBUPlayerEventHandler
 	}
 	
 	@SubscribeEvent
-	public void onChunkChanged(net.minecraftforge.event.entity.EntityEvent.EnteringChunk e)
+	public void onChunkChanged(EntityEvent.EnteringChunk e)
 	{
 		if(e.entity.worldObj.isRemote || !(e.entity instanceof EntityPlayerMP)) return;
 		
@@ -120,9 +122,9 @@ public class FTBUPlayerEventHandler
 				{
 					FTBLib.printChat(ep, new ChatComponentTranslation(FTBU.mod.assets + "cmd.spawn_tp"));
 					World w = LMDimUtils.getWorld(0);
-					ChunkCoordinates pos = w.getSpawnPoint();
-					pos.posY = w.getTopSolidOrLiquidBlock(pos.posX, pos.posZ);
-					LMDimUtils.teleportPlayer(ep, pos.posX + 0.5D, pos.posY + 1.25D, pos.posZ + 0.5D, 0);
+					BlockPos pos = w.getSpawnPoint();
+					pos = w.getTopSolidOrLiquidBlock(pos);
+					LMDimUtils.teleportPlayer(ep, pos.getX() + 0.5D, pos.getY() + 1.25D, pos.getZ() + 0.5D, 0);
 				}
 				else LMDimUtils.teleportPlayer(ep, player.lastPos);
 				ep.worldObj.playSoundAtEntity(ep, "random.fizz", 1F, 1F);
@@ -156,25 +158,16 @@ public class FTBUPlayerEventHandler
 	}
 	
 	@SubscribeEvent
-	public void onBlockClick(net.minecraftforge.event.entity.player.PlayerInteractEvent e)
+	public void onBlockClick(PlayerInteractEvent e)
 	{
 		if(e.action == net.minecraftforge.event.entity.player.PlayerInteractEvent.Action.RIGHT_CLICK_AIR) return;
-		else if(!canInteract(e.entityPlayer, e.x, e.y, e.z, e.action == net.minecraftforge.event.entity.player.PlayerInteractEvent.Action.LEFT_CLICK_BLOCK))
+		else if(!canInteract(e.entityPlayer, e.pos, e.action == net.minecraftforge.event.entity.player.PlayerInteractEvent.Action.LEFT_CLICK_BLOCK))
 			e.setCanceled(true);
 	}
 	
-	private boolean canInteract(EntityPlayer ep, int x, int y, int z, boolean leftClick)
+	private boolean canInteract(EntityPlayer ep, BlockPos pos, boolean leftClick)
 	{
-		ItemStack heldItem = ep.getHeldItem();
-		
-		if(ep.capabilities.isCreativeMode && leftClick && heldItem != null && heldItem.getItem() instanceof ICreativeSafeItem)
-		{
-			if(!ep.worldObj.isRemote) ep.worldObj.markBlockRangeForRenderUpdate(x, y, z, x, y, z);
-			else ep.worldObj.markBlockForUpdate(x, y, z);
-			return false;
-		}
-		
-		return Claims.canPlayerInteract(ep, x, y, z, leftClick);
+		return Claims.canPlayerInteract(ep, pos, leftClick);
 	}
 	
 	@SubscribeEvent

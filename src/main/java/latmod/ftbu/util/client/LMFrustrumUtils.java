@@ -1,10 +1,10 @@
 package latmod.ftbu.util.client;
 
-import cpw.mods.fml.relauncher.*;
 import ftb.lib.client.FTBLibClient;
 import latmod.lib.LMUtils;
-import net.minecraft.client.renderer.culling.Frustrum;
+import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraftforge.fml.relauncher.*;
 
 @SideOnly(Side.CLIENT)
 public class LMFrustrumUtils
@@ -12,7 +12,7 @@ public class LMFrustrumUtils
 	public static boolean isFirstPerson;
 	public static int currentDim;
 	public static double playerX, playerY, playerZ, renderX, renderY, renderZ;
-	public static final Frustrum frustrum = new Frustrum();
+	public static final Frustum frustrum = new Frustum();
 	public static long playerPosHash;
 	
 	/*
@@ -25,12 +25,14 @@ public class LMFrustrumUtils
 	{
 		isFirstPerson = FTBLibClient.mc.gameSettings.thirdPersonView == 0;
 		currentDim = LatCoreMCClient.getDim();
-		playerX = RenderManager.instance.viewerPosX;
-		playerY = RenderManager.instance.viewerPosY;
-		playerZ = RenderManager.instance.viewerPosZ;
-		renderX = RenderManager.renderPosX;
-		renderY = RenderManager.renderPosY;
-		renderZ = RenderManager.renderPosZ;
+		RenderManager rm = FTBLibClient.mc.getRenderManager();
+		playerX = rm.viewerPosX;
+		playerY = rm.viewerPosY;
+		playerZ = rm.viewerPosZ;
+		//FIXME: Render pos
+		renderX = 0;//rm.renderPosX;
+		renderY = 0;//rm.renderPosY;
+		renderZ = 0;//rm.renderPosZ;
 		playerPosHash = Math.abs(LMUtils.longHashCode(currentDim, playerX, playerY, playerZ) + 1);
 		frustrum.setPosition(playerX, playerY, playerZ);
 	}

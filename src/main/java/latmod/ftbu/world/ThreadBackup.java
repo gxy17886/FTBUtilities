@@ -32,8 +32,8 @@ public class ThreadBackup extends Thread
 		
 		try
 		{
-			new CommandSaveOff().processCommand(FTBLib.getServer(), new String[0]);
-			new CommandSaveAll().processCommand(FTBLib.getServer(), new String[] { "flush" });
+			new CommandSaveOff().execute(FTBLib.getServer(), new String[0]);
+			new CommandSaveAll().execute(FTBLib.getServer(), new String[] { "flush" });
 		}
 		catch(Exception e) { }
 		
@@ -164,7 +164,8 @@ public class ThreadBackup extends Thread
 		}
 		
 		Backups.thread = null;
-		new CommandSaveOn().processCommand(FTBLib.getServer(), new String[0]);
+		try { new CommandSaveOn().execute(FTBLib.getServer(), new String[0]); }
+		catch(Exception e) { }
 		//System.gc();
 	}
 	

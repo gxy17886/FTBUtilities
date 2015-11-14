@@ -1,8 +1,8 @@
 package latmod.ftbu.util.client;
 
-import cpw.mods.fml.relauncher.*;
 import latmod.ftbu.mod.FTBU;
 import net.minecraft.client.resources.I18n;
+import net.minecraftforge.fml.relauncher.*;
 
 @SideOnly(Side.CLIENT)
 public class FTBULang

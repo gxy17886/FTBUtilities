@@ -5,12 +5,12 @@ import java.util.UUID;
 
 import com.mojang.authlib.GameProfile;
 
-import cpw.mods.fml.relauncher.*;
 import ftb.lib.*;
 import ftb.lib.client.FTBLibClient;
 import latmod.ftbu.api.EventLMPlayerClient;
 import net.minecraft.nbt.*;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.*;
 
 @SideOnly(Side.CLIENT)
 public class LMWorldClient extends LMWorld // LMWorldServer

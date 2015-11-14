@@ -2,10 +2,10 @@ package latmod.ftbu.util.client.model;
 
 import org.lwjgl.opengl.GL11;
 
-import cpw.mods.fml.relauncher.*;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.util.*;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraftforge.fml.relauncher.*;
 
 @SideOnly(Side.CLIENT)
 public class CubeRenderer
@@ -43,12 +43,6 @@ public class CubeRenderer
 	public void setUVD(double minU, double minV, double maxU, double maxV)
 	{ setUV((float)minU, (float)minV, (float)maxU, (float)maxV); }
 	
-	public void setUVFromIcon(IIcon icon)
-	{ setUV(icon.getMinU(), icon.getMinV(), icon.getMaxU(), icon.getMaxV()); }
-	
-	public void setUVFromBlock(Block b, int m, int s)
-	{ setUVFromIcon(b.getIcon(s, m)); }
-	
 	public void renderAll()
 	{
 		renderDown();
@@ -79,11 +73,11 @@ public class CubeRenderer
 		if(hasNormals)
 		{
 			if(tessellator == null) GL11.glNormal3f(normalsX[i], normalsY[i], normalsZ[i]);
-			else tessellator.setNormal(normalsX[i], normalsY[i], normalsZ[i]);
+			else tessellator.getWorldRenderer().setNormal(normalsX[i], normalsY[i], normalsZ[i]);
 		}
 		
 		if(tessellator == null) GL11.glBegin(GL11.GL_QUADS);
-		else tessellator.startDrawingQuads();
+		else tessellator.getWorldRenderer().startDrawingQuads();
 	}
 	
 	protected void end()
@@ -105,8 +99,8 @@ public class CubeRenderer
 		}
 		else
 		{
-			if(hasTexture) tessellator.setTextureUV(u, v);
-			tessellator.addVertex(x, y, z);
+			if(hasTexture) tessellator.getWorldRenderer().setTextureUV(u, v);
+			tessellator.getWorldRenderer().addVertex(x, y, z);
 		}
 	}
 	

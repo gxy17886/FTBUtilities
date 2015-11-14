@@ -1,9 +1,9 @@
 package latmod.ftbu.net;
 
-import cpw.mods.fml.common.network.simpleimpl.*;
 import ftb.lib.api.LMNetworkWrapper;
 import latmod.ftbu.world.*;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraftforge.fml.common.network.simpleimpl.*;
 
 public class MessageClaimChunk extends MessageFTBU
 {

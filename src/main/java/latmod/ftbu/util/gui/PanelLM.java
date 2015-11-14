@@ -2,8 +2,8 @@ package latmod.ftbu.util.gui;
 
 import java.util.List;
 
-import cpw.mods.fml.relauncher.*;
 import latmod.lib.FastList;
+import net.minecraftforge.fml.relauncher.*;
 
 @SideOnly(Side.CLIENT)
 public abstract class PanelLM extends WidgetLM // GuiLM

@@ -1,8 +1,8 @@
 package latmod.ftbu.net;
-import cpw.mods.fml.common.network.simpleimpl.*;
-import cpw.mods.fml.relauncher.*;
 import latmod.ftbu.api.EventLMPlayerClient;
 import latmod.ftbu.world.*;
+import net.minecraftforge.fml.common.network.simpleimpl.*;
+import net.minecraftforge.fml.relauncher.*;
 
 public class MessageLMPlayerDied extends MessageFTBU
 {

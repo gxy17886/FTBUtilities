@@ -6,7 +6,7 @@ import latmod.ftbu.cmd.*;
 import latmod.ftbu.mod.FTBU;
 import latmod.lib.*;
 import latmod.lib.config.*;
-import net.minecraft.command.ICommandSender;
+import net.minecraft.command.*;
 import net.minecraft.util.*;
 
 public class CmdAdminConfig extends CommandLM
@@ -43,7 +43,7 @@ public class CmdAdminConfig extends CommandLM
 		return s;
 	}
 	
-	public IChatComponent onCommand(ICommandSender ics, String[] args)
+	public IChatComponent onCommand(ICommandSender ics, String[] args) throws CommandException
 	{
 		checkArgs(args, 3); // file, group, entry, value...
 		

@@ -1,6 +1,4 @@
 package latmod.ftbu.net;
-import cpw.mods.fml.common.network.simpleimpl.*;
-import cpw.mods.fml.relauncher.*;
 import ftb.lib.LMNBTUtils;
 import ftb.lib.api.LMNetworkWrapper;
 import ftb.lib.item.LMInvUtils;
@@ -9,6 +7,8 @@ import latmod.ftbu.world.*;
 import latmod.lib.FastList;
 import net.minecraft.nbt.*;
 import net.minecraft.util.IChatComponent;
+import net.minecraftforge.fml.common.network.simpleimpl.*;
+import net.minecraftforge.fml.relauncher.*;
 
 public class MessageLMPlayerInfo extends MessageFTBU
 {
@@ -29,7 +29,7 @@ public class MessageLMPlayerInfo extends MessageFTBU
 		NBTTagList listInfo = new NBTTagList();
 		
 		for(int i = 0; i < info.size(); i++)
-			listInfo.appendTag(new NBTTagString(IChatComponent.Serializer.func_150696_a(info.get(i))));
+			listInfo.appendTag(new NBTTagString(IChatComponent.Serializer.componentToJson(info.get(i))));
 		
 		tag.setTag("I", listInfo);
 		
@@ -53,7 +53,7 @@ public class MessageLMPlayerInfo extends MessageFTBU
 		
 		FastList<IChatComponent> info = new FastList<IChatComponent>();
 		for(int i = 0; i < listInfo.tagCount(); i++)
-			info.add(IChatComponent.Serializer.func_150699_a(listInfo.getStringTagAt(i)));
+			info.add(IChatComponent.Serializer.jsonToComponent(listInfo.getStringTagAt(i)));
 		p.receiveInfo(info);
 		
 		LMInvUtils.readItemsFromNBT(p.lastArmor, tag, "LI");

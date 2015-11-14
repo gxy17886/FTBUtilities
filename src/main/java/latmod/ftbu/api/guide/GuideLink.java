@@ -6,11 +6,11 @@ import java.net.URL;
 
 import javax.imageio.ImageIO;
 
-import cpw.mods.fml.relauncher.*;
 import ftb.lib.FTBLib;
 import ftb.lib.client.*;
 import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.util.*;
+import net.minecraftforge.fml.relauncher.*;
 
 public class GuideLink
 {

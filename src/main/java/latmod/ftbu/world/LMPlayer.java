@@ -4,11 +4,11 @@ import java.util.UUID;
 
 import com.mojang.authlib.GameProfile;
 
-import cpw.mods.fml.relauncher.*;
 import latmod.lib.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.fml.relauncher.*;
 
 public abstract class LMPlayer implements Comparable<LMPlayer> //LMPlayerServer // LMPlayerClient
 {

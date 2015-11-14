@@ -2,7 +2,6 @@ package latmod.ftbu.world;
 
 import com.mojang.authlib.GameProfile;
 
-import cpw.mods.fml.relauncher.*;
 import ftb.lib.*;
 import ftb.lib.item.StringIDInvLoader;
 import latmod.ftbu.api.EventLMPlayerServer;
@@ -15,6 +14,7 @@ import latmod.lib.*;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.*;
+import net.minecraftforge.fml.relauncher.*;
 
 public class LMPlayerServer extends LMPlayer // LMPlayerClient
 {
@@ -73,7 +73,7 @@ public class LMPlayerServer extends LMPlayer // LMPlayerClient
 	}
 	
 	public boolean isOP()
-	{ return FTBLib.getServer().getConfigurationManager().func_152596_g(gameProfile); }
+	{ return LMStringUtils.contains(FTBLib.getServer().getConfigurationManager().getOppedPlayerNames(), gameProfile.getName()); }
 	
 	public EntityPos getPos()
 	{

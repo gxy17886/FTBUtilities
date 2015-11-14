@@ -2,9 +2,9 @@ package latmod.ftbu.util.gui;
 
 import org.lwjgl.opengl.GL11;
 
-import cpw.mods.fml.relauncher.*;
 import ftb.lib.client.TextureCoords;
 import latmod.lib.FastList;
+import net.minecraftforge.fml.relauncher.*;
 
 @SideOnly(Side.CLIENT)
 public class ButtonPopupMenu extends ButtonLM

@@ -1,6 +1,6 @@
 package latmod.ftbu.util.gui;
 
-import cpw.mods.fml.relauncher.*;
+import net.minecraftforge.fml.relauncher.*;
 
 @SideOnly(Side.CLIENT)
 public interface IClientActionGui

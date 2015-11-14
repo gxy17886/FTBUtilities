@@ -1,10 +1,6 @@
 package latmod.ftbu.mod.client;
 import org.lwjgl.input.Keyboard;
 
-import cpw.mods.fml.common.Loader;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.gameevent.InputEvent;
-import cpw.mods.fml.relauncher.*;
 import ftb.lib.MathHelperMC;
 import ftb.lib.api.*;
 import ftb.lib.client.FTBLibClient;
@@ -12,15 +8,17 @@ import ftb.lib.item.*;
 import ftb.lib.mod.FTBLibFinals;
 import latmod.ftbu.api.EventLMWorldClient;
 import latmod.ftbu.api.client.EventFTBUKey;
-import latmod.ftbu.api.paint.IPainterItem;
 import latmod.ftbu.mod.client.gui.friends.GuiFriendsGuiSmall;
 import latmod.ftbu.util.client.LatCoreMCClient;
 import latmod.ftbu.world.*;
 import latmod.lib.FastList;
-import net.minecraft.item.*;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.event.entity.player.*;
+import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.InputEvent;
+import net.minecraftforge.fml.relauncher.*;
 
 @SideOnly(Side.CLIENT)
 public class FTBUClientEventHandler
@@ -35,14 +33,6 @@ public class FTBUClientEventHandler
 	public void onTooltip(ItemTooltipEvent e)
 	{
 		if(e.itemStack == null || e.itemStack.getItem() == null) return;
-		
-		Item item = e.itemStack.getItem();
-		
-		if(item instanceof IPainterItem)
-		{
-			ItemStack paint = ((IPainterItem)item).getPaintItem(e.itemStack);
-			if(paint != null) e.toolTip.add(EnumChatFormatting.WHITE + "" + EnumChatFormatting.BOLD + paint.getDisplayName());
-		}
 		
 		if(FTBUClient.addRegistryNames.getB())
 		{

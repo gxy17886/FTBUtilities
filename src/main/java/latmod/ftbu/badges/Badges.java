@@ -2,7 +2,7 @@ package latmod.ftbu.badges;
 
 import java.util.*;
 
-import cpw.mods.fml.relauncher.*;
+import net.minecraftforge.fml.relauncher.*;
 
 @SideOnly(Side.CLIENT)
 public class Badges

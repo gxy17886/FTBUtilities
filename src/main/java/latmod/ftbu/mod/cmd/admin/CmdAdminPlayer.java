@@ -13,7 +13,7 @@ import latmod.ftbu.notification.Notification;
 import latmod.ftbu.util.LatCoreMC;
 import latmod.ftbu.world.*;
 import latmod.lib.*;
-import net.minecraft.command.ICommandSender;
+import net.minecraft.command.*;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.*;
@@ -35,7 +35,7 @@ public class CmdAdminPlayer extends CommandLM
 		return NameType.NONE;
 	}
 	
-	public IChatComponent onCommand(ICommandSender ics, String[] args)
+	public IChatComponent onCommand(ICommandSender ics, String[] args) throws CommandException
 	{
 		checkArgs(args, 1);
 		
@@ -77,7 +77,7 @@ public class CmdAdminPlayer extends CommandLM
 		
 		if(args[0].equals("delete"))
 		{
-			int playerID = parseInt(ics, args[1]);
+			int playerID = parseInt(args[1]);
 			LMPlayer p = getLMPlayer(playerID);
 			if(p.isOnline()) return mustBeOffline;
 			LMWorldServer.inst.players.removeObj(playerID);
@@ -99,7 +99,7 @@ public class CmdAdminPlayer extends CommandLM
 				if(FTBLib.isModInstalled(OtherMods.BAUBLES))
 					StringIDInvLoader.writeInvToNBT(BaublesHelper.getBaubles(ep), tag, "Baubles");
 				
-				String filename = ep.getCommandSenderName();
+				String filename = ep.getName();
 				if(args.length == 3) filename = "custom/" + args[2];
 				LMNBTUtils.writeMap(new FileOutputStream(LMFileUtils.newFile(new File(FTBLib.folderLocal, "ftbu/playerinvs/" + filename + ".dat"))), tag);
 			}
@@ -118,7 +118,7 @@ public class CmdAdminPlayer extends CommandLM
 			try
 			{
 				EntityPlayerMP ep = p.getPlayer();
-				String filename = ep.getCommandSenderName();
+				String filename = ep.getName();
 				if(args.length == 3) filename = "custom/" + args[2];
 				NBTTagCompound tag = LMNBTUtils.readMap(new FileInputStream(new File(FTBLib.folderLocal, "ftbu/playerinvs/" + filename + ".dat")));
 				

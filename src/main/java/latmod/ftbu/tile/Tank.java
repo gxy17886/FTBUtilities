@@ -1,6 +1,6 @@
 package latmod.ftbu.tile;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraft.util.EnumFacing;
 import net.minecraftforge.fluids.*;
 
 public class Tank
@@ -68,7 +68,7 @@ public class Tank
 		tag.setTag(name, tankTag);
 	}
 	
-	public int fill(ForgeDirection from, FluidStack resource, boolean doFill)
+	public int fill(EnumFacing from, FluidStack resource, boolean doFill)
 	{
 		if(canFill(from, resource.getFluid()))
 		{
@@ -79,7 +79,7 @@ public class Tank
 		return 0;
 	}
 	
-	public FluidStack drain(ForgeDirection from, FluidStack resource, boolean doDrain)
+	public FluidStack drain(EnumFacing from, FluidStack resource, boolean doDrain)
 	{
 		if(fluidTank.getFluidAmount() <= 0) return null;
 		if(!fluidTank.getFluid().isFluidEqual(resource)) return null;
@@ -88,20 +88,20 @@ public class Tank
 		if(doDrain) checkIfChanged(); return fs;
 	}
 	
-	public FluidStack drain(ForgeDirection from, int maxDrain, boolean doDrain)
+	public FluidStack drain(EnumFacing from, int maxDrain, boolean doDrain)
 	{
 		FluidStack fs = fluidTank.drain(maxDrain, doDrain);
 		if(doDrain) checkIfChanged();
 		return fs;
 	}
 	
-	public boolean canFill(ForgeDirection from, Fluid fluid)
+	public boolean canFill(EnumFacing from, Fluid fluid)
 	{ return true; }
 	
-	public boolean canDrain(ForgeDirection from, Fluid fluid)
+	public boolean canDrain(EnumFacing from, Fluid fluid)
 	{ return true; }
 	
-	public FluidTankInfo[] getTankInfo(ForgeDirection from)
+	public FluidTankInfo[] getTankInfo(EnumFacing from)
 	{ return new FluidTankInfo[] { fluidTank.getInfo() }; }
 	
 	private void checkIfChanged()

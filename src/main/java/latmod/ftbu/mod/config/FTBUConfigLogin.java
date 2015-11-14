@@ -65,7 +65,7 @@ public class FTBUConfigLogin
 	public static boolean printMotd(EntityPlayerMP ep)
 	{
 		for(String s : FTBUConfigLogin.motd.get())
-			FTBLib.printChat(ep, s.replace("$player$", ep.getDisplayName()).replace("$", FTBLib.FORMATTING));
+			FTBLib.printChat(ep, s.replace("$player$", ep.getDisplayName().getUnformattedText()));
 		
 		printRules(ep);
 		return true;

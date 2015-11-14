@@ -4,14 +4,11 @@ import java.util.UUID;
 
 import ftb.lib.*;
 import ftb.lib.item.LMInvUtils;
-import latmod.ftbu.api.tile.ISecureTile;
 import latmod.ftbu.mod.config.*;
 import latmod.lib.*;
-import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.*;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
 public class Claims
@@ -38,7 +35,7 @@ public class Claims
 		
 		if(list != null) for(int i = 0; i < list.tagCount(); i++)
 		{
-			int[] ai = list.func_150306_c(i);
+			int[] ai = list.getIntArray(i);
 			chunks.add(new ClaimedChunk(this, ai[0], ai[1], ai[2]));
 		}
 		
@@ -46,7 +43,7 @@ public class Claims
 		
 		if(list != null) for(int i = 0; i < list.tagCount(); i++)
 		{
-			int[] ai = list.func_150306_c(i);
+			int[] ai = list.getIntArray(i);
 			loaded.add(new ClaimedChunk(this, ai[0], ai[1], ai[2]));
 		}
 	}
@@ -166,11 +163,11 @@ public class Claims
 		//if(!LatCoreMC.isDedicatedServer()) return false;
 		int radius = FTBLib.getServer().getSpawnProtectionSize();
 		if(radius <= 0) return false;
-		ChunkCoordinates c = LMDimUtils.getSpawnPoint(0);
-		int minX = MathHelperLM.chunk(c.posX + 0.5D - radius);
-		int minZ = MathHelperLM.chunk(c.posZ + 0.5D - radius);
-		int maxX = MathHelperLM.chunk(c.posX + 0.5D + radius);
-		int maxZ = MathHelperLM.chunk(c.posZ + 0.5D + radius);
+		BlockPos c = LMDimUtils.getSpawnPoint(0);
+		int minX = MathHelperLM.chunk(c.getX() + 0.5D - radius);
+		int minZ = MathHelperLM.chunk(c.getZ() + 0.5D - radius);
+		int maxX = MathHelperLM.chunk(c.getX() + 0.5D + radius);
+		int maxZ = MathHelperLM.chunk(c.getZ() + 0.5D + radius);
 		return cx >= minX && cx <= maxX && cz >= minZ && cz <= maxZ;
 	}
 	
@@ -200,30 +197,21 @@ public class Claims
 		return true;
 	}
 	
-	public static boolean canPlayerInteract(EntityPlayer ep, int x, int y, int z, boolean leftClick)
+	public static boolean canPlayerInteract(EntityPlayer ep, BlockPos pos, boolean leftClick)
 	{
 		World w = ep.worldObj;
 		boolean server = !w.isRemote;
-		if(server && LMWorldServer.inst.settings.isOutsideF(w.provider.dimensionId, x, z)) return false;
+		if(server && LMWorldServer.inst.settings.isOutsideF(w.provider.getDimensionId(), pos.getX(), pos.getZ())) return false;
 		
 		if(!server || FTBUConfigGeneral.allowCreativeInteractSecure(ep)) return true;
 		
-		Block block = w.getBlock(x, y, z);
-		
-		if(block.hasTileEntity(w.getBlockMetadata(x, y, z)))
-		{
-			TileEntity te = w.getTileEntity(x, y, z);
-			if(te instanceof ISecureTile && !te.isInvalid() && !((ISecureTile)te).canPlayerInteract(ep, leftClick))
-			{ ((ISecureTile)te).onPlayerNotOwner(ep, leftClick); return false; }
-		}
-		
-		return canInteract(ep.getGameProfile().getId(), w, x, y, z, leftClick);
+		return canInteract(ep.getGameProfile().getId(), w, pos, leftClick);
 	}
 	
-	public static boolean canInteract(UUID playerID, World w, int x, int y, int z, boolean leftClick)
+	public static boolean canInteract(UUID playerID, World w, BlockPos pos, boolean leftClick)
 	{
-		if(leftClick && FTBUConfigClaims.breakWhitelist.get().contains(LMInvUtils.getRegName(w.getBlock(x, y, z)))) return true;
-		ChunkType type = ChunkType.getD(w.provider.dimensionId, x, z);
+		if(leftClick && FTBUConfigClaims.breakWhitelist.get().contains(LMInvUtils.getRegName(w.getBlockState(pos).getBlock()))) return true;
+		ChunkType type = ChunkType.getD(w.provider.getDimensionId(), pos.getX(), pos.getZ());
 		return type.canInteract(LMWorldServer.inst.getPlayer(playerID), leftClick);
 	}
 }

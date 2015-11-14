@@ -4,6 +4,7 @@ import ftb.lib.BaublesHelper;
 import net.minecraft.entity.player.*;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.*;
 
 public class InvSeeInventory implements IInventory
 {
@@ -73,10 +74,13 @@ public class InvSeeInventory implements IInventory
 		}
 	}
 	
-	public String getInventoryName()
-	{ return player.getCommandSenderName();  }
+	public String getName()
+	{ return player.getName(); }
 	
-	public boolean hasCustomInventoryName()
+	public IChatComponent getDisplayName()
+	{ return new ChatComponentText(getName()); }
+	
+	public boolean hasCustomName()
 	{ return true; }
 	
 	public int getInventoryStackLimit()
@@ -92,16 +96,29 @@ public class InvSeeInventory implements IInventory
 	public boolean isUseableByPlayer(EntityPlayer ep)
 	{ return true; }
 	
-	public void openInventory()
-	{ }
-	
-	public void closeInventory()
-	{ }
+	public void openInventory(EntityPlayer ep) { }
+	public void closeInventory(EntityPlayer ep) { }
 	
 	public boolean isItemValidForSlot(int i, ItemStack is)
 	{
 		int j = slotMapping[i];
 		IInventory inv = getInv(j);
 		return (inv == null) ? false : inv.isItemValidForSlot(getSlot(j), is);
+	}
+	
+	public int getField(int id)
+	{ return 0; }
+	
+	public void setField(int id, int value)
+	{
+	}
+	
+	public int getFieldCount()
+	{ return 0; }
+	
+	public void clear()
+	{
+		for(int i = 0; i < getSizeInventory(); i++)
+			setInventorySlotContents(i, null);
 	}
 }

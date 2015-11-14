@@ -1,8 +1,8 @@
 package latmod.ftbu.api.client;
 
-import cpw.mods.fml.relauncher.*;
 import latmod.lib.FastMap;
 import net.minecraft.client.resources.I18n;
+import net.minecraftforge.fml.relauncher.*;
 
 @SideOnly(Side.CLIENT)
 public final class ClientConfig

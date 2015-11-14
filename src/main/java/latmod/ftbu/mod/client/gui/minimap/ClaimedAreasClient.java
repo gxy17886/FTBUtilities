@@ -1,9 +1,9 @@
 package latmod.ftbu.mod.client.gui.minimap;
 
-import cpw.mods.fml.relauncher.*;
 import latmod.ftbu.util.client.LatCoreMCClient;
 import latmod.ftbu.world.*;
 import latmod.lib.*;
+import net.minecraftforge.fml.relauncher.*;
 
 @SideOnly(Side.CLIENT)
 public class ClaimedAreasClient

@@ -37,7 +37,7 @@ public class LMSecurity
 		
 		NBTTagCompound tag1 = tag.getCompoundTag(s);
 		
-		if(tag1.func_150299_b("Owner") == LMNBTUtils.STRING)
+		if(tag1.getTagType("Owner") == LMNBTUtils.STRING)
 		{
 			String o = tag1.getString("Owner");
 			

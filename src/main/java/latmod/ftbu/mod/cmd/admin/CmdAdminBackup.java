@@ -4,7 +4,7 @@ import ftb.lib.*;
 import latmod.ftbu.cmd.*;
 import latmod.ftbu.world.Backups;
 import latmod.lib.LMFileUtils;
-import net.minecraft.command.ICommandSender;
+import net.minecraft.command.*;
 import net.minecraft.util.*;
 
 public class CmdAdminBackup extends CommandLM
@@ -18,7 +18,7 @@ public class CmdAdminBackup extends CommandLM
 		return null;
 	}
 	
-	public IChatComponent onCommand(final ICommandSender ics, String[] args)
+	public IChatComponent onCommand(final ICommandSender ics, String[] args) throws CommandException
 	{
 		checkArgs(args, 1);
 		
@@ -28,7 +28,7 @@ public class CmdAdminBackup extends CommandLM
 			Backups.shouldRun = true;
 			boolean b = Backups.run();
 			Backups.commandOverride = false;
-			if(b) FTBLib.printChat(BroadcastSender.inst, ics.getCommandSenderName() + " launched manual backup!");
+			if(b) FTBLib.printChat(BroadcastSender.inst, ics.getName() + " launched manual backup!");
 			return b ? null : error(new ChatComponentText("Backup in progress!"));
 		}
 		if(args[0].equals("deleteall"))

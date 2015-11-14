@@ -1,6 +1,5 @@
 package latmod.ftbu.mod.config;
 
-import cpw.mods.fml.relauncher.Side;
 import ftb.lib.api.config.ConfigSyncRegistry;
 import latmod.ftbu.api.guide.GuideInfo;
 import latmod.lib.FastList;
@@ -8,6 +7,7 @@ import latmod.lib.config.*;
 import latmod.lib.util.FloatBounds;
 import net.minecraft.entity.*;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraftforge.fml.relauncher.Side;
 
 public class FTBUConfigGeneral
 {

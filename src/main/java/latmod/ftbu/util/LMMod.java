@@ -4,21 +4,17 @@ import java.lang.reflect.Field;
 
 import org.apache.logging.log4j.*;
 
-import cpw.mods.fml.common.*;
-import cpw.mods.fml.relauncher.*;
 import ftb.lib.mod.FTBLibFinals;
-import latmod.ftbu.api.item.IItemLM;
-import latmod.ftbu.block.IBlockLM;
 import latmod.ftbu.mod.FTBU;
 import latmod.ftbu.recipes.LMRecipes;
-import latmod.ftbu.tile.TileLM;
-import latmod.lib.*;
-import net.minecraft.block.Block;
+import latmod.lib.FastMap;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.*;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.common.*;
+import net.minecraftforge.fml.relauncher.*;
 
 public class LMMod
 {
@@ -74,8 +70,6 @@ public class LMMod
 	public final String lowerCaseModID;
 	public final ModContainer modContainer;
 	public final String assets;
-	public final FastList<IBlockLM> blocks;
-	public final FastList<IItemLM> items;
 	
 	public Logger logger;
 	public LMRecipes recipes;
@@ -86,8 +80,6 @@ public class LMMod
 		modContainer = Loader.instance().getIndexedModList().get(modID);
 		lowerCaseModID = modID.toLowerCase();
 		assets = lowerCaseModID + ":";
-		blocks = new FastList<IBlockLM>();
-		items = new FastList<IItemLM>();
 		
 		logger = LogManager.getLogger(modID);
 		recipes = new LMRecipes();
@@ -131,35 +123,15 @@ public class LMMod
 	public String translateClient(String s, Object... args)
 	{ return I18n.format(assets + s, args); }
 	
-	public void addItem(IItemLM i)
-	{ LatCoreMC.addItem((Item)i, i.getItemID()); items.add(i); }
-
-	public void addBlock(IBlockLM b)
-	{ LatCoreMC.addBlock((Block)b, b.getItemBlock(), b.getItemID()); blocks.add(b); }
-
-	public void addTile(Class<? extends TileLM> c, String s, String... alt)
-	{ LatCoreMC.addTileEntity(c, modID + '.' + s, alt); }
-	
 	public void addEntity(Class<? extends Entity> c, String s, int id)
 	{ LatCoreMC.addEntity(c, s, id, modID); }
 	
 	public void onPostLoaded()
 	{
-		for(int i = 0; i < items.size(); i++)
-			items.get(i).onPostLoaded();
-		
-		for(int i = 0; i < blocks.size(); i++)
-			blocks.get(i).onPostLoaded();
 	}
 	
 	public void loadRecipes()
 	{
-		for(int i = 0; i < items.size(); i++)
-			items.get(i).loadRecipes();
-		
-		for(int i = 0; i < blocks.size(); i++)
-			blocks.get(i).loadRecipes();
-		
 		if(recipes != null) recipes.loadRecipes();
 	}
 }

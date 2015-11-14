@@ -1,7 +1,7 @@
 package latmod.ftbu.badges;
 
-import cpw.mods.fml.relauncher.*;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.relauncher.*;
 
 @SideOnly(Side.CLIENT)
 public class BadgeEmpty extends Badge

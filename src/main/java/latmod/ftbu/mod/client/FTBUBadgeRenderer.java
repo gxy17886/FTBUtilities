@@ -1,11 +1,11 @@
 package latmod.ftbu.mod.client;
 
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.relauncher.*;
 import ftb.lib.EventBusHelper;
 import latmod.ftbu.badges.*;
 import latmod.ftbu.world.*;
 import net.minecraftforge.client.event.RenderPlayerEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.*;
 
 @SideOnly(Side.CLIENT)
 public class FTBUBadgeRenderer
@@ -24,6 +24,7 @@ public class FTBUBadgeRenderer
 		}
 	}
 	
+	@SuppressWarnings("deprecation")
 	@SubscribeEvent
 	public void onPlayerRender(RenderPlayerEvent.Specials.Post e)
 	{

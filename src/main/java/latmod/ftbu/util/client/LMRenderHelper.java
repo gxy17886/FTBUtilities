@@ -3,17 +3,17 @@ import java.awt.Color;
 
 import org.lwjgl.opengl.*;
 
-import cpw.mods.fml.relauncher.*;
 import ftb.lib.client.FTBLibClient;
 import latmod.lib.MathHelperLM;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.*;
-import net.minecraft.client.renderer.entity.*;
+import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.*;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.*;
 
 @SideOnly(Side.CLIENT)
 public class LMRenderHelper
@@ -28,14 +28,10 @@ public class LMRenderHelper
 		entityItem.hoverStart = 0F;
 		entityItem.setEntityItemStack(is);
 		
-		boolean isFancy = RenderManager.instance.options.fancyGraphics;
-		RenderManager.instance.options.fancyGraphics = true;
-		RenderItem.renderInFrame = frame;
-		
-		RenderManager.instance.renderEntityWithPosYaw(entityItem, 0D, 0D, 0D, 0F, 0F);
-		
-		RenderManager.instance.options.fancyGraphics = isFancy;
-		RenderItem.renderInFrame = false;
+		boolean isFancy = FTBLibClient.mc.getRenderManager().options.fancyGraphics;
+		FTBLibClient.mc.getRenderManager().options.fancyGraphics = true;
+		FTBLibClient.mc.getRenderManager().renderEntityWithPosYaw(entityItem, 0D, 0D, 0D, 0F, 0F);
+		FTBLibClient.mc.getRenderManager().options.fancyGraphics = isFancy;
 	}
 	
 	public static void enableTexture()
@@ -99,8 +95,8 @@ public class LMRenderHelper
 		GL11.glColor4f(1F, 1F, 1F, 1F);
 		FontRenderer f = is.getItem().getFontRenderer(is);
 		if (f == null) f = font;
-		itemRender.renderItemAndEffectIntoGUI(f, FTBLibClient.mc.getTextureManager(), is, x, y);
-		itemRender.renderItemOverlayIntoGUI(f, FTBLibClient.mc.getTextureManager(), is, x, y, null);
+		//FTBLibClient.mc.getItemRenderer().renderItemAndEffectIntoGUI(is, x, y, null);
+		FTBLibClient.mc.getRenderItem().renderItemOverlayIntoGUI(f, is, x, y, null);
 		GL11.glDisable(GL11.GL_LIGHTING);
 		GL11.glPopMatrix();
 		GL11.glPopAttrib();

@@ -1,6 +1,4 @@
 package latmod.ftbu.mod;
-import cpw.mods.fml.common.*;
-import cpw.mods.fml.common.event.*;
 import ftb.lib.*;
 import latmod.ftbu.mod.cmd.*;
 import latmod.ftbu.mod.config.*;
@@ -12,6 +10,8 @@ import latmod.ftbu.world.*;
 import latmod.lib.LMJsonUtils;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraftforge.common.ForgeChunkManager;
+import net.minecraftforge.fml.common.*;
+import net.minecraftforge.fml.common.event.*;
 
 @Mod
 (

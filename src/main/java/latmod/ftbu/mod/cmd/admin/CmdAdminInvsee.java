@@ -2,7 +2,7 @@ package latmod.ftbu.mod.cmd.admin;
 
 import latmod.ftbu.cmd.*;
 import latmod.ftbu.mod.cmd.InvSeeInventory;
-import net.minecraft.command.ICommandSender;
+import net.minecraft.command.*;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.IChatComponent;
 
@@ -17,7 +17,7 @@ public class CmdAdminInvsee extends CommandLM
 		return NameType.NONE;
 	}
 	
-	public IChatComponent onCommand(ICommandSender ics, String[] args)
+	public IChatComponent onCommand(ICommandSender ics, String[] args) throws CommandException
 	{
 		checkArgs(args, 1);
 		EntityPlayerMP ep0 = getCommandSenderAsPlayer(ics);

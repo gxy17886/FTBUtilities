@@ -3,9 +3,6 @@ package latmod.ftbu.mod.handlers;
 import java.io.File;
 import java.util.Arrays;
 
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.gameevent.TickEvent;
-import cpw.mods.fml.relauncher.Side;
 import ftb.lib.*;
 import ftb.lib.api.config.ConfigListRegistry;
 import latmod.ftbu.api.EventLMWorldServer;
@@ -19,6 +16,10 @@ import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.WorldServer;
+import net.minecraftforge.event.world.ExplosionEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent;
+import net.minecraftforge.fml.relauncher.Side;
 
 public class FTBUWorldEventHandler
 {
@@ -32,7 +33,7 @@ public class FTBUWorldEventHandler
 	@SubscribeEvent
 	public void worldLoaded(net.minecraftforge.event.world.WorldEvent.Load e)
 	{
-		if(FTBLib.isServer() && e.world.provider.dimensionId == 0 && e.world instanceof WorldServer)
+		if(FTBLib.isServer() && e.world.provider.getDimensionId() == 0 && e.world instanceof WorldServer)
 		{
 			ConfigListRegistry.reloadInstance();
 			
@@ -61,7 +62,7 @@ public class FTBUWorldEventHandler
 	@SubscribeEvent
 	public void worldSaved(net.minecraftforge.event.world.WorldEvent.Save e)
 	{
-		if(FTBLib.isServer() && e.world.provider.dimensionId == 0 && e.world instanceof WorldServer)
+		if(FTBLib.isServer() && e.world.provider.getDimensionId() == 0 && e.world instanceof WorldServer)
 		{
 			new EventLMWorldServer.Saved(LMWorldServer.inst).post();
 			
@@ -126,12 +127,12 @@ public class FTBUWorldEventHandler
 	}
 	
 	@SubscribeEvent
-	public void onExplosionStart(net.minecraftforge.event.world.ExplosionEvent.Start e)
+	public void onExplosionStart(ExplosionEvent.Start e)
 	{
 		if(e.world.isRemote) return;
-		int dim = e.world.provider.dimensionId;
-		int cx = MathHelperLM.chunk(e.explosion.explosionX);
-		int cz = MathHelperLM.chunk(e.explosion.explosionZ);
+		int dim = e.world.provider.getDimensionId();
+		int cx = MathHelperLM.chunk(e.explosion.getPosition().xCoord);
+		int cz = MathHelperLM.chunk(e.explosion.getPosition().zCoord);
 		if(!Claims.allowExplosion(dim, cx, cz)) e.setCanceled(true);
 	}
 	

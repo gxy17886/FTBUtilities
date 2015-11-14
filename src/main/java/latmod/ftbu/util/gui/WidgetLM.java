@@ -1,7 +1,7 @@
 package latmod.ftbu.util.gui;
-import cpw.mods.fml.relauncher.*;
 import ftb.lib.client.TextureCoords;
 import latmod.lib.FastList;
+import net.minecraftforge.fml.relauncher.*;
 
 @SideOnly(Side.CLIENT)
 public class WidgetLM

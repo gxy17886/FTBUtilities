@@ -1,5 +1,4 @@
 package latmod.ftbu.mod.client;
-import cpw.mods.fml.relauncher.*;
 import ftb.lib.*;
 import ftb.lib.api.gui.LMGuiHandlerRegistry;
 import ftb.lib.client.FTBLibClient;
@@ -10,12 +9,10 @@ import latmod.ftbu.mod.*;
 import latmod.ftbu.mod.client.gui.minimap.ClaimedAreasClient;
 import latmod.ftbu.mod.cmd.CmdMath;
 import latmod.ftbu.net.ClientAction;
-import latmod.ftbu.tile.TileLM;
-import latmod.ftbu.util.client.*;
+import latmod.ftbu.util.client.ClientNotifications;
 import latmod.ftbu.world.*;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraftforge.client.ClientCommandHandler;
+import net.minecraftforge.fml.relauncher.*;
 
 @SideOnly(Side.CLIENT)
 public class FTBUClient extends FTBUCommon // FTBLibModClient
@@ -110,15 +107,6 @@ public class FTBUClient extends FTBUCommon // FTBLibModClient
 	
 	public LMWorld getClientWorldLM()
 	{ return LMWorldClient.inst; }
-	
-	public void readTileData(TileLM t, S35PacketUpdateTileEntity p)
-	{
-		NBTTagCompound data = p.func_148857_g();
-		t.readTileData(data);
-		t.readTileClientData(data);
-		t.onUpdatePacket();
-		LatCoreMCClient.onGuiClientAction();
-	}
 	
 	public static void onReloaded()
 	{

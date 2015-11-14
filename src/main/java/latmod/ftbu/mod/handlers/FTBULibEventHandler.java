@@ -1,11 +1,11 @@
 package latmod.ftbu.mod.handlers;
 
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import ftb.lib.api.*;
 import latmod.ftbu.api.guide.ClientGuideFile;
 import latmod.ftbu.mod.FTBUTicks;
 import latmod.ftbu.mod.config.FTBUConfigGeneral;
 import latmod.ftbu.world.*;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class FTBULibEventHandler
 {

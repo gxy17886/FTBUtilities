@@ -31,7 +31,7 @@ public class LMWorldSettings
 		
 		for(int i = 0; i < wbList.tagCount(); i++)
 		{
-			int[] ai = wbList.func_150306_c(i);
+			int[] ai = wbList.getIntArray(i);
 			
 			if(ai.length >= 4)
 			{

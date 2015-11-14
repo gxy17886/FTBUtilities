@@ -1,12 +1,12 @@
 package latmod.ftbu.mod.handlers;
 
-import cpw.mods.fml.common.eventhandler.*;
 import ftb.lib.FTBLib;
 import ftb.lib.api.ServerTickCallback;
 import latmod.ftbu.world.*;
 import latmod.lib.FastList;
 import net.minecraft.event.*;
 import net.minecraft.util.*;
+import net.minecraftforge.fml.common.eventhandler.*;
 
 public class FTBUChatEventHandler
 {

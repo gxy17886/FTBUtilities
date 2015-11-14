@@ -2,7 +2,6 @@ package latmod.ftbu.world;
 
 import java.util.*;
 
-import cpw.mods.fml.relauncher.*;
 import ftb.lib.FTBLib;
 import latmod.ftbu.cmd.NameType;
 import latmod.ftbu.mod.FTBU;
@@ -11,6 +10,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.FakePlayer;
+import net.minecraftforge.fml.relauncher.*;
 
 public abstract class LMWorld // FTBWorld
 {

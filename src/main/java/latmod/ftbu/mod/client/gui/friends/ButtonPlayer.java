@@ -1,12 +1,9 @@
 package latmod.ftbu.mod.client.gui.friends;
 
-import com.mojang.authlib.minecraft.MinecraftProfileTexture;
-
 import latmod.ftbu.net.ClientAction;
 import latmod.ftbu.util.gui.*;
 import latmod.ftbu.world.*;
 import latmod.lib.FastList;
-import net.minecraft.client.entity.AbstractClientPlayer;
 
 public class ButtonPlayer extends ButtonLM
 {
@@ -25,7 +22,7 @@ public class ButtonPlayer extends ButtonLM
 		if(player != null && player.playerLM != null)
 		{
 			panel.gui.panelPlayerView.selectedPlayer = new Player(player.playerLM);
-			panel.gui.panelPlayerView.selectedPlayer.func_152121_a(MinecraftProfileTexture.Type.SKIN, AbstractClientPlayer.getLocationSkin(player.playerLM.getName()));
+			//panel.gui.panelPlayerView.selectedPlayer.func_152121_a(MinecraftProfileTexture.Type.SKIN, AbstractClientPlayer.getLocationSkin(player.playerLM.getName()));
 			panel.gui.panelPlayerView.selectedPlayer.inventory.currentItem = 0;
 			ClientAction.ACTION_REQUEST_PLAYER_INFO.send(player.playerLM.playerID);
 			if(b != 0) panel.gui.panelPopupMenu = new PanelPopupPlayerActions((GuiFriends)gui, gui.mouseX - gui.mainPanel.getAX() + 3, gui.mouseY - gui.mainPanel.getAY() - 3, player.playerLM);

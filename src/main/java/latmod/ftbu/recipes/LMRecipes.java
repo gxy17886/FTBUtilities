@@ -1,8 +1,8 @@
 package latmod.ftbu.recipes;
-import cpw.mods.fml.common.registry.GameRegistry;
 import latmod.lib.FastList;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.*;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.*;
 
 public class LMRecipes
@@ -86,7 +86,7 @@ public class LMRecipes
 	}
 	
 	public void addSmelting(ItemStack out, ItemStack in, float xp)
-	{ FurnaceRecipes.smelting().func_151394_a(in, out, xp); }
+	{ FurnaceRecipes.instance().addSmeltingRecipe(in, out, xp); }
 	
 	public void addSmelting(ItemStack out, ItemStack in)
 	{ addSmelting(out, in, 0F); }

@@ -2,9 +2,9 @@ package latmod.ftbu.util.gui;
 
 import org.lwjgl.input.Mouse;
 
-import cpw.mods.fml.relauncher.*;
 import ftb.lib.client.TextureCoords;
 import latmod.lib.*;
+import net.minecraftforge.fml.relauncher.*;
 
 @SideOnly(Side.CLIENT)
 public class SliderLM extends WidgetLM

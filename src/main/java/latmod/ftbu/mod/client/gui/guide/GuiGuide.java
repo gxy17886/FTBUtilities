@@ -132,9 +132,9 @@ public class GuiGuide extends GuiLM
 		String s = category.getFormattedText();
 		if(s != null && s.length() > 0)
 		{
-			boolean uni = fontRendererObj.getUnicodeFlag();
-			fontRendererObj.setUnicodeFlag(true);
-			List<String> list = fontRendererObj.listFormattedStringToWidth(s.trim(), textPanel.width);
+			boolean uni = getFontRenderer().getUnicodeFlag();
+			getFontRenderer().setUnicodeFlag(true);
+			List<String> list = getFontRenderer().listFormattedStringToWidth(s.trim(), textPanel.width);
 			
 			for(int i = 0; i < list.size(); i++)
 			{
@@ -148,7 +148,7 @@ public class GuiGuide extends GuiLM
 					if(l.special.isText())
 					{
 						l.text = (l.special.title == null) ? "" : l.special.title.getFormattedText();
-						List<String> list1 = fontRendererObj.listFormattedStringToWidth(l.text, textPanel.width);
+						List<String> list1 = getFontRenderer().listFormattedStringToWidth(l.text, textPanel.width);
 						
 						if(list1.size() > 1)
 						{

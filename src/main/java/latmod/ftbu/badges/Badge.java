@@ -4,7 +4,6 @@ import java.util.UUID;
 
 import org.lwjgl.opengl.GL11;
 
-import cpw.mods.fml.relauncher.*;
 import ftb.lib.client.FTBLibClient;
 import latmod.ftbu.mod.FTBU;
 import latmod.lib.FastMap;
@@ -12,6 +11,7 @@ import latmod.lib.util.FinalIDObject;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.relauncher.*;
 
 @SideOnly(Side.CLIENT)
 public class Badge extends FinalIDObject

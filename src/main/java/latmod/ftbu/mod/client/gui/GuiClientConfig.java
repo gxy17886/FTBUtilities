@@ -3,7 +3,6 @@ package latmod.ftbu.mod.client.gui;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 
-import cpw.mods.fml.relauncher.*;
 import ftb.lib.api.gui.GuiIcons;
 import latmod.ftbu.api.client.*;
 import latmod.ftbu.util.client.FTBULang;
@@ -11,6 +10,7 @@ import latmod.ftbu.util.gui.*;
 import latmod.lib.*;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.util.EnumChatFormatting;
+import net.minecraftforge.fml.relauncher.*;
 
 @SideOnly(Side.CLIENT)
 public class GuiClientConfig extends GuiLM implements IClientActionGui

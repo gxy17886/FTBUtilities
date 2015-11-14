@@ -58,7 +58,7 @@ public class PanelPlayerView extends PanelFriendsGui
 		int playerY = height / 2 + size - 4;
 		gui.setTexture(selectedPlayer.getLocationSkin());
 		GL11.glTranslatef(0F, 0F, 100F);
-		GuiInventory.func_147046_a(playerX, playerY, size, playerX - gui.mouseX, playerY - (size + (size / 1.625F)) - gui.mouseY, selectedPlayer);
+		GuiInventory.drawEntityOnScreen(playerX, playerY, size, playerX - gui.mouseX, playerY - (size + (size / 1.625F)) - gui.mouseY, selectedPlayer);
 		GL11.glColor4f(1F, 1F, 1F, 1F);
 		GL11.glPopAttrib();
 		GL11.glPopMatrix();

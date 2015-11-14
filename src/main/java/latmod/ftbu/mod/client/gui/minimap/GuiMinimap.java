@@ -4,7 +4,6 @@ import java.nio.ByteBuffer;
 
 import org.lwjgl.opengl.*;
 
-import cpw.mods.fml.relauncher.*;
 import ftb.lib.api.gui.GuiIcons;
 import ftb.lib.client.*;
 import latmod.ftbu.mod.FTBU;
@@ -22,6 +21,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.relauncher.*;
 
 @SideOnly(Side.CLIENT)
 public class GuiMinimap extends GuiLM implements GuiYesNoCallback // implements IClientActionGui
@@ -322,7 +322,7 @@ public class GuiMinimap extends GuiLM implements GuiYesNoCallback // implements 
 						GL11.glColor4f(1F, 1F, 1F, ep.isSneaking() ? 0.4F : 0.7F);
 						GuiLM.drawTexturedRectD(-8, -8, zLevel, 16, 16, 0D, 0D, 1D, 1D);
 						GL11.glPopMatrix();
-						GuiLM.drawPlayerHead(ep.getCommandSenderName(), -2, -2, 4, 4, zLevel);
+						GuiLM.drawPlayerHead(ep.getName(), -2, -2, 4, 4, zLevel);
 						GL11.glPopMatrix();
 					}
 				}

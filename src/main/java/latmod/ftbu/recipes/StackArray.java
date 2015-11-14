@@ -1,10 +1,10 @@
 package latmod.ftbu.recipes;
 import ftb.lib.item.*;
-import latmod.ftbu.item.MaterialItem;
 import latmod.lib.FastList;
 import net.minecraft.block.Block;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.*;
+import net.minecraft.util.EnumFacing;
 import net.minecraftforge.fluids.*;
 
 public class StackArray implements IStackArray
@@ -71,7 +71,7 @@ public class StackArray implements IStackArray
 		return se;
 	}
 	
-	public static StackArray[] convertInv(IInventory inv, int side)
+	public static StackArray[] convertInv(IInventory inv, EnumFacing side)
 	{
 		if(inv == null) return null;
 		return convert(LMInvUtils.getAllItems(inv, side));
@@ -110,7 +110,6 @@ public class StackArray implements IStackArray
 		else if(o instanceof ItemStack) return ((ItemStack)o);
 		else if(o instanceof Item) return new ItemStack((Item)o);
 		else if(o instanceof Block) return new ItemStack((Block)o);
-		else if(o instanceof MaterialItem) return ((MaterialItem)o).getStack();
 		else return null;
 	}
 	

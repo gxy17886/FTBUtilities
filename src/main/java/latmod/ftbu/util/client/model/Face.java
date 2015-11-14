@@ -1,7 +1,7 @@
 package latmod.ftbu.util.client.model;
 import org.lwjgl.opengl.GL11;
 
-import cpw.mods.fml.relauncher.*;
+import net.minecraftforge.fml.relauncher.*;
 
 /** Made by LatvianModder */
 @SideOnly(Side.CLIENT)

@@ -1,11 +1,8 @@
 package latmod.ftbu.util;
 import java.util.Random;
 
-import cpw.mods.fml.common.IWorldGenerator;
-import cpw.mods.fml.common.registry.*;
 import ftb.lib.FTBLib;
 import latmod.ftbu.api.guide.GuideFile;
-import latmod.ftbu.api.item.IItemLM;
 import latmod.ftbu.mod.FTBUTicks;
 import latmod.ftbu.net.*;
 import latmod.ftbu.notification.Notification;
@@ -16,6 +13,8 @@ import net.minecraft.item.*;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.fluids.*;
+import net.minecraftforge.fml.common.IWorldGenerator;
+import net.minecraftforge.fml.common.registry.*;
 
 /** Made by LatvianModder */
 public final class LatCoreMC // LatCoreMCClient
@@ -23,9 +22,6 @@ public final class LatCoreMC // LatCoreMCClient
 	public static final Random rand = new Random();
 	
 	// Registry methods //
-	
-	public static void addItem(IItemLM i)
-	{ addItem((Item)i, i.getItemID()); }
 	
 	public static void addItem(Item i, String name)
 	{ GameRegistry.registerItem(i, name); }

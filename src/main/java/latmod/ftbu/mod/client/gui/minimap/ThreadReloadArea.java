@@ -3,14 +3,16 @@ package latmod.ftbu.mod.client.gui.minimap;
 import java.nio.ByteBuffer;
 import java.util.Arrays;
 
-import cpw.mods.fml.relauncher.*;
 import ftb.lib.client.FTBLibClient;
 import latmod.lib.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.*;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
+import net.minecraftforge.fml.relauncher.*;
 
 @SideOnly(Side.CLIENT)
 public class ThreadReloadArea extends Thread
@@ -72,9 +74,10 @@ public class ThreadReloadArea extends Thread
 		short by = getTopY(bx, bz);
 		if(by == defHeight || by > 255) return 0;
 		
-		Block b = worldObj.getBlock(bx, by, bz);
+		BlockPos pos = new BlockPos(bx, by, bz);
+		Block b = worldObj.getBlockState(pos).getBlock();
 		
-		if(!b.isAir(worldObj, bx, by, bz))
+		if(!b.isAir(worldObj, pos))
 		{
 			int col = getBlockColor(bx, by, bz, b);
 			
@@ -114,14 +117,14 @@ public class ThreadReloadArea extends Thread
 		}
 		else
 		{
-			c = worldObj.getChunkFromBlockCoords(bx, bz);
+			c = worldObj.getChunkFromChunkCoords(cx, cz);
 			max = (short)Math.max(255, c.getTopFilledSegment() + 15);
 		}
 		
 		for(short y = max; y > 0; --y)
 		{
 			Block block = c.getBlock(x, y, z);
-			if(block != Blocks.tallgrass && !block.isAir(worldObj, bx, y, bz))
+			if(block != Blocks.tallgrass && !block.isAir(worldObj, new BlockPos(bx, y, bz)))
 			{
 				if(mapValue) heightMap[x + z * 16] = y;
 				return y;
@@ -140,10 +143,14 @@ public class ThreadReloadArea extends Thread
 		else if(b == Blocks.end_stone) return MapColor.sandColor.colorValue;
 		else if(b == Blocks.obsidian) return 0xFF150047;
 		else if(b == Blocks.gravel) return 0xFF8D979B;
-		else if(b.getMaterial() == Material.water)
-			return LMColorUtils.multiply(MapColor.waterColor.colorValue, b.colorMultiplier(worldObj, x, y, z), 255);
 		
-		int m = worldObj.getBlockMetadata(x, y, z);
+		BlockPos pos = new BlockPos(x, y, z);
+		
+		if(b.getMaterial() == Material.water)
+			return LMColorUtils.multiply(MapColor.waterColor.colorValue, b.colorMultiplier(worldObj, pos), 255);
+		
+		IBlockState state = worldObj.getBlockState(pos);
+		int m = b.damageDropped(state);
 		
 		if(b == Blocks.red_flower)
 		{
@@ -168,10 +175,10 @@ public class ThreadReloadArea extends Thread
 		}
 		
 		if(b == Blocks.leaves || b == Blocks.vine || b == Blocks.waterlily)
-			return LMColorUtils.addBrightness(b.colorMultiplier(worldObj, x, y, z), -40);
+			return LMColorUtils.addBrightness(b.colorMultiplier(worldObj, pos), -40);
 		else if(b == Blocks.grass && m == 0)
-			return LMColorUtils.addBrightness(b.colorMultiplier(worldObj, x, y, z), -15);
+			return LMColorUtils.addBrightness(b.colorMultiplier(worldObj, pos), -15);
 		
-		return b.getMapColor(m).colorValue;
+		return b.getMapColor(state).colorValue;
 	}
 }

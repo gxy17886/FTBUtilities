@@ -1,6 +1,5 @@
 package latmod.ftbu.mod.client.gui.friends;
 
-import cpw.mods.fml.relauncher.*;
 import latmod.ftbu.net.ClientAction;
 import latmod.ftbu.util.client.*;
 import latmod.ftbu.util.gui.*;
@@ -8,6 +7,7 @@ import latmod.ftbu.world.LMWorldClient;
 import latmod.lib.FastList;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.util.*;
+import net.minecraftforge.fml.relauncher.*;
 
 @SideOnly(Side.CLIENT)
 public class GuiFriends extends GuiLM implements IClientActionGui
@@ -48,7 +48,7 @@ public class GuiFriends extends GuiLM implements IClientActionGui
 		if(panelPlayerView.selectedPlayer != null)
 		{
 			panelPlayerInfo.text.clear();
-			panelPlayerInfo.text.add(EnumChatFormatting.BOLD + panelPlayerView.selectedPlayer.getCommandSenderName());
+			panelPlayerInfo.text.add(EnumChatFormatting.BOLD + panelPlayerView.selectedPlayer.getName());
 			if(panelPlayerView.selectedPlayer.playerLM.isOnline)
 				panelPlayerInfo.text.add(EnumChatFormatting.GREEN + "[" + FTBULang.Guis.label_online() + "]");
 			

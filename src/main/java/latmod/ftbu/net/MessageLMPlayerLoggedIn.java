@@ -3,11 +3,11 @@ import java.util.UUID;
 
 import com.mojang.authlib.GameProfile;
 
-import cpw.mods.fml.common.network.simpleimpl.*;
-import cpw.mods.fml.relauncher.*;
 import latmod.ftbu.api.EventLMPlayerClient;
 import latmod.ftbu.world.*;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.fml.common.network.simpleimpl.*;
+import net.minecraftforge.fml.relauncher.*;
 
 public class MessageLMPlayerLoggedIn extends MessageFTBU
 {

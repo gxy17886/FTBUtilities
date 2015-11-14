@@ -24,16 +24,16 @@ public abstract class CommandLM extends CommandBase
 	public int getRequiredPermissionLevel()
 	{ return level.requiredPermsLevel(); }
 	
-	public boolean canCommandSenderUseCommand(ICommandSender ics)
-	{ return level != CommandLevel.NONE && (level == CommandLevel.ALL || super.canCommandSenderUseCommand(ics)); }
+	public boolean canCommandSenderUse(ICommandSender ics)
+	{ return level != CommandLevel.NONE && (level == CommandLevel.ALL || super.canCommandSenderUse(ics)); }
 	
-	public final String getCommandName()
+	public final String getName()
 	{ return commandName; }
 	
 	public String getCommandUsage(ICommandSender ics)
 	{ return "/" + commandName; }
 	
-	public final void processCommand(ICommandSender ics, String[] args)
+	public final void execute(ICommandSender ics, String[] args) throws CommandException
 	{
 		if(args == null) args = new String[0];
 		
@@ -45,7 +45,7 @@ public abstract class CommandLM extends CommandBase
 	public List<String> getCommandAliases()
 	{ return aliases.isEmpty() ? null : aliases; }
 	
-	public abstract IChatComponent onCommand(ICommandSender ics, String[] args);
+	public abstract IChatComponent onCommand(ICommandSender ics, String[] args) throws CommandException;
 	
 	public static IChatComponent error(IChatComponent c)
 	{ c.getChatStyle().setColor(EnumChatFormatting.RED); return c; }
@@ -56,14 +56,19 @@ public abstract class CommandLM extends CommandBase
 	public void onPostCommand(ICommandSender ics, String[] args) {}
 	
 	@SuppressWarnings("all")
-	public final List addTabCompletionOptions(ICommandSender ics, String[] args)
+	public final List addTabCompletionOptions(ICommandSender ics, String[] args, BlockPos pos)
 	{
-		String[] s = getTabStrings(ics, args, args.length - 1);
-		if(s != null && s.length > 0)
+		try
 		{
-			if(sortStrings(ics, args, args.length - 1)) Arrays.sort(s);
-			return getListOfStringsMatchingLastWord(args, s);
+			String[] s = getTabStrings(ics, args, args.length - 1);
+			if(s != null && s.length > 0)
+			{
+				if(sortStrings(ics, args, args.length - 1)) Arrays.sort(s);
+				return getListOfStringsMatchingLastWord(args, s);
+			}
 		}
+		catch(CommandException e) { }
+		
 		return null;
 	}
 	
@@ -81,29 +86,29 @@ public abstract class CommandLM extends CommandBase
 		return false;
 	}
 	
-	public String[] getTabStrings(ICommandSender ics, String args[], int i)
+	public String[] getTabStrings(ICommandSender ics, String args[], int i) throws CommandException
 	{ return getUsername(args, i).getUsernames(); }
 	
 	public boolean sortStrings(ICommandSender ics, String args[], int i)
 	{ return getUsername(args, i) == NameType.NONE; }
 	
-	public static EntityPlayerMP getPlayer(ICommandSender ics, String s)
+	public static EntityPlayerMP getPlayer(ICommandSender ics, String s) throws PlayerNotFoundException
 	{
 		EntityPlayerMP ep = getLMPlayer(s).getPlayer();
 		if(ep != null) return ep;
 		throw new PlayerNotFoundException();
 	}
 	
-	public static LMPlayerServer getLMPlayer(Object o)
+	public static LMPlayerServer getLMPlayer(Object o) throws PlayerNotFoundException
 	{
 		LMPlayerServer p = LMWorldServer.inst.getPlayer(o);
 		if(p == null) throw new PlayerNotFoundException();
 		return p;
 	}
 	
-	public static void checkArgs(String[] args, int i)
+	public static void checkArgs(String[] args, int i) throws CommandException
 	{ if(args == null || args.length < i) throw new MissingArgsException(); }
 	
-	public static void checkArgsStrong(String[] args, int i)
+	public static void checkArgsStrong(String[] args, int i) throws CommandException
 	{ if(args == null || args.length != i) throw new MissingArgsException(); }
 }

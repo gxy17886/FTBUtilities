@@ -27,20 +27,11 @@ public class Player extends AbstractClientPlayer
 	
 	public void addChatMessage(IChatComponent i) { }
 	
-	public boolean canCommandSenderUseCommand(int i, String s)
-	{ return false; }
-	
-	public ChunkCoordinates getPlayerCoordinates()
-	{ return new ChunkCoordinates(0, 0, 0); }
-	
 	public boolean isInvisibleToPlayer(EntityPlayer ep)
 	{ return true; }
 	
 	public ResourceLocation getLocationSkin()
 	{ return playerLM.getSkin(); }
-	
-	public boolean func_152122_n()
-	{ return false; }
 	
 	public ResourceLocation getLocationCape()
 	{ return null; }

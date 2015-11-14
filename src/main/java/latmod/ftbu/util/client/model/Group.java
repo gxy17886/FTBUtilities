@@ -2,9 +2,9 @@ package latmod.ftbu.util.client.model;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.vector.Vector3f;
 
-import cpw.mods.fml.relauncher.*;
 import latmod.ftbu.util.client.LMRenderHelper;
 import latmod.lib.FastList;
+import net.minecraftforge.fml.relauncher.*;
 
 /** Made by LatvianModder */
 @SideOnly(Side.CLIENT)

@@ -4,11 +4,11 @@ import java.util.List;
 
 import com.google.common.collect.ListMultimap;
 
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import ftb.lib.FTBLib;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeChunkManager;
 import net.minecraftforge.common.ForgeChunkManager.Ticket;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class FTBUChunkEventHandler implements ForgeChunkManager.OrderedLoadingCallback, ForgeChunkManager.PlayerOrderedLoadingCallback
 {

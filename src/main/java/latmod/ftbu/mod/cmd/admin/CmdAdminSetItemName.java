@@ -2,7 +2,7 @@ package latmod.ftbu.mod.cmd.admin;
 
 import latmod.ftbu.cmd.*;
 import latmod.lib.LMStringUtils;
-import net.minecraft.command.ICommandSender;
+import net.minecraft.command.*;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.*;
 
@@ -11,7 +11,7 @@ public class CmdAdminSetItemName extends CommandLM
 	public CmdAdminSetItemName(String s)
 	{ super(s, CommandLevel.OP); }
 
-	public IChatComponent onCommand(ICommandSender ics, String[] args)
+	public IChatComponent onCommand(ICommandSender ics, String[] args) throws CommandException
 	{
 		checkArgs(args, 1);
 		EntityPlayerMP ep = getCommandSenderAsPlayer(ics);

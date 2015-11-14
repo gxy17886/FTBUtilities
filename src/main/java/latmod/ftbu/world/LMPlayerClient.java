@@ -2,7 +2,6 @@ package latmod.ftbu.world;
 
 import com.mojang.authlib.GameProfile;
 
-import cpw.mods.fml.relauncher.*;
 import ftb.lib.client.FTBLibClient;
 import latmod.ftbu.api.EventLMPlayerClient;
 import latmod.ftbu.badges.Badge;
@@ -10,6 +9,7 @@ import latmod.lib.FastList;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.*;
+import net.minecraftforge.fml.relauncher.*;
 
 public class LMPlayerClient extends LMPlayer // LMPlayerServer
 {
