@@ -1,7 +1,7 @@
 package latmod.ftbu.util.client;
 import java.awt.Color;
 
-import org.lwjgl.opengl.*;
+import org.lwjgl.opengl.GL11;
 
 import ftb.lib.client.FTBLibClient;
 import latmod.lib.MathHelperLM;
@@ -84,21 +84,13 @@ public class LMRenderHelper
 	
 	public static void renderGuiItem(ItemStack is, RenderItem itemRender, FontRenderer font, int x, int y)
 	{
-		GL11.glPushAttrib(GL11.GL_ENABLE_BIT);
 		if(is == null || is.getItem() == null) return;
-		GL11.glPushMatrix();
-		//GL11.glTranslatef(0F, 0F, 32F);
-		GL11.glEnable(GL11.GL_LIGHTING);
+		GL11.glPushAttrib(GL11.GL_ENABLE_BIT);
 		RenderHelper.enableGUIStandardItemLighting();
-		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
 		OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 240F, 240F);
-		GL11.glColor4f(1F, 1F, 1F, 1F);
-		FontRenderer f = is.getItem().getFontRenderer(is);
-		if (f == null) f = font;
-		//FTBLibClient.mc.getItemRenderer().renderItemAndEffectIntoGUI(is, x, y, null);
-		FTBLibClient.mc.getRenderItem().renderItemOverlayIntoGUI(f, is, x, y, null);
-		GL11.glDisable(GL11.GL_LIGHTING);
-		GL11.glPopMatrix();
+		GlStateManager.enableRescaleNormal();
+		FTBLibClient.mc.getRenderItem().renderItemIntoGUI(is, x, y);
+		FTBLibClient.mc.getRenderItem().renderItemOverlayIntoGUI(font, is, x, y, null);
 		GL11.glPopAttrib();
 	}
 }

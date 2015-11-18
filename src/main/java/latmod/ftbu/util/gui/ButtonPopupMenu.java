@@ -4,6 +4,7 @@ import org.lwjgl.opengl.GL11;
 
 import ftb.lib.client.TextureCoords;
 import latmod.lib.FastList;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraftforge.fml.relauncher.*;
 
 @SideOnly(Side.CLIENT)
@@ -47,9 +48,9 @@ public class ButtonPopupMenu extends ButtonLM
 		gui.render(icon, ax + 2, ay + 1D, 16D, 16D);
 		if(title != null && !title.isEmpty())
 		{
-			GL11.glTranslatef(0F, 0F, gui.getZLevel());
+			GlStateManager.translate(0F, 0F, gui.getZLevel());
 			gui.getFontRenderer().drawString(title, ax + x, ay + (height - 8) / 2, 0xFFFFFFFF);
-			GL11.glTranslatef(0F, 0F, -gui.getZLevel());
+			GlStateManager.translate(0F, 0F, -gui.getZLevel());
 		}
 	}
 	

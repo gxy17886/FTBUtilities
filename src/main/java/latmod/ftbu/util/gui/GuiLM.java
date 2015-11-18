@@ -120,9 +120,9 @@ public abstract class GuiLM extends GuiContainer implements codechicken.nei.api.
 	
 	public void drawBackground()
 	{
-		GL11.glDisable(GL11.GL_LIGHTING);
-		GL11.glEnable(GL11.GL_BLEND);
-		GL11.glColor4f(1F, 1F, 1F, 1F);
+		GlStateManager.disableLighting();
+		GlStateManager.enableBlend();
+		GlStateManager.color(1F, 1F, 1F, 1F);
 		
 		if(texture != null)
 		{
@@ -155,8 +155,10 @@ public abstract class GuiLM extends GuiContainer implements codechicken.nei.api.
 		}
 		
 		super.drawScreen(mx, my, f);
-		GL11.glDisable(GL11.GL_LIGHTING);
-		GL11.glEnable(GL11.GL_BLEND);
+		GlStateManager.disableLighting();
+		GlStateManager.enableBlend();
+		GlStateManager.color(1F, 1F, 1F, 1F);
+		
 		tempTextList.clear();
 		drawText(tempTextList);
 		
@@ -240,10 +242,12 @@ public abstract class GuiLM extends GuiContainer implements codechicken.nei.api.
 	
 	public static void drawBlankRect(double x, double y, double z, double w, double h, int col)
 	{
-		GL11.glColor4f(1F, 1F, 1F, 1F);
-		GL11.glEnable(GL11.GL_BLEND);
-		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		GL11.glDisable(GL11.GL_TEXTURE_2D);
+		GlStateManager.disableLighting();
+		GlStateManager.enableBlend();
+		GlStateManager.alphaFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		GlStateManager.disableTexture2D();
+		GlStateManager.color(1F, 1F, 1F, 1F);
+		
 		WorldRenderer t = Tessellator.getInstance().getWorldRenderer();
 		t.startDrawingQuads();
 		t.setColorRGBA_I(col, LMColorUtils.getAlpha(col));
@@ -252,7 +256,8 @@ public abstract class GuiLM extends GuiContainer implements codechicken.nei.api.
 		t.addVertex(x + w, y + 0, z);
 		t.addVertex(x + 0, y + 0, z);
 		Tessellator.getInstance().draw();
-		GL11.glEnable(GL11.GL_TEXTURE_2D);
+		
+		GlStateManager.enableTexture2D();
 	}
 	
 	public void drawItem(ItemStack is, int x, int y)

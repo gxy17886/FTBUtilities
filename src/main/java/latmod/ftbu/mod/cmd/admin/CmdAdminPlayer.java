@@ -26,6 +26,7 @@ public class CmdAdminPlayer extends CommandLM
 	public String[] getTabStrings(ICommandSender ics, String args[], int i)
 	{
 		if(i == 0) return new String[] { "delete", "saveinv", "loadinv", "notify", /*"displayitem"*/ };
+		else if(i == 2 && isArg(args, 0, "notify")) return new String[] { "{\"id\":\"none\",\"title\":\"title\"}" };
 		return null;
 	}
 	

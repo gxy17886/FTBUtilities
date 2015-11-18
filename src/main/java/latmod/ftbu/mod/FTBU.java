@@ -9,7 +9,6 @@ import latmod.ftbu.util.LMMod;
 import latmod.ftbu.world.*;
 import latmod.lib.LMJsonUtils;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraftforge.common.ForgeChunkManager;
 import net.minecraftforge.fml.common.*;
 import net.minecraftforge.fml.common.event.*;
 
@@ -45,8 +44,6 @@ public class FTBU
 		EventBusHelper.register(new FTBUPlayerEventHandler());
 		EventBusHelper.register(new FTBUWorldEventHandler());
 		EventBusHelper.register(new FTBUChatEventHandler());
-		EventBusHelper.register(FTBUChunkEventHandler.instance);
-		ForgeChunkManager.setForcedChunkLoadingCallback(this, FTBUChunkEventHandler.instance);
 		
 		FTBUNetHandler.init();
 		Backups.init();

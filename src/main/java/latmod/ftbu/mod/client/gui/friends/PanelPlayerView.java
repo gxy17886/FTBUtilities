@@ -6,6 +6,7 @@ import org.lwjgl.opengl.GL11;
 import latmod.ftbu.mod.client.FTBUClient;
 import latmod.ftbu.world.LMWorldClient;
 import net.minecraft.client.gui.inventory.GuiInventory;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
 
 public class PanelPlayerView extends PanelFriendsGui
@@ -50,17 +51,17 @@ public class PanelPlayerView extends PanelFriendsGui
 			}
 		}
 		
-		GL11.glPushMatrix();
+		GlStateManager.pushMatrix();
 		GL11.glPushAttrib(GL11.GL_ENABLE_BIT);
 		int playerX = getAX() + width / 2;
 		
 		int size = 120;
 		int playerY = height / 2 + size - 4;
 		gui.setTexture(selectedPlayer.getLocationSkin());
-		GL11.glTranslatef(0F, 0F, 100F);
+		GlStateManager.translate(0F, 0F, 100F);
 		GuiInventory.drawEntityOnScreen(playerX, playerY, size, playerX - gui.mouseX, playerY - (size + (size / 1.625F)) - gui.mouseY, selectedPlayer);
-		GL11.glColor4f(1F, 1F, 1F, 1F);
+		GlStateManager.color(1F, 1F, 1F, 1F);
 		GL11.glPopAttrib();
-		GL11.glPopMatrix();
+		GlStateManager.popMatrix();
 	}
 }

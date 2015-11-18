@@ -1,12 +1,11 @@
 package latmod.ftbu.mod.client.gui.friends;
 
-import org.lwjgl.opengl.GL11;
-
 import ftb.lib.api.gui.GuiIcons;
 import latmod.ftbu.util.client.*;
 import latmod.ftbu.util.gui.*;
 import latmod.ftbu.world.LMWorldClient;
 import latmod.lib.*;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.item.ItemStack;
 
 public class ButtonNotification extends ButtonLM
@@ -40,7 +39,7 @@ public class ButtonNotification extends ButtonLM
 			gui.drawItem(is, ax + 4, ay + 4);
 		}
 		
-		GL11.glColor4f(1F, 1F, 1F, 1F);
+		GlStateManager.color(1F, 1F, 1F, 1F);
 		
 		int color = LMColorUtils.getRGBA(notification.notification.color, mouseOver(ax, ay) ? 255 : 185);
 		
@@ -54,9 +53,9 @@ public class ButtonNotification extends ButtonLM
 			if(gui.mouseX >= ax + width - 16)
 				alpha = 1F;
 			
-			GL11.glColor4f(1F, 1F, 1F, alpha);
+			GlStateManager.color(1F, 1F, 1F, alpha);
 			gui.render(GuiIcons.close, ax + width - 16, ay + 4);
-			GL11.glColor4f(1F, 1F, 1F, 1F);
+			GlStateManager.color(1F, 1F, 1F, 1F);
 		}
 	}
 	
